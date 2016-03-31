@@ -73,6 +73,7 @@ var GridService = (function () {
      * method once you have verified that records do exists.
      */
     GridService.prototype.loadGridData = function () {
+        console.log("");
         //retrieve column names (doing this every time, just incase something changes)
         this.fetchColumnNames();
         var firstIndex = this.grid.getStartFrom();
@@ -242,30 +243,9 @@ var GridController = (function () {
     };
     return GridController;
 }());
-var Greeter = (function () {
-    function Greeter(element) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-    Greeter.prototype.start = function () {
-        var _this = this;
-        this.timerToken = setInterval(function () { return _this.span.innerHTML = new Date().toUTCString(); }, 500);
-    };
-    Greeter.prototype.stop = function () {
-        clearTimeout(this.timerToken);
-    };
-    return Greeter;
-}());
 window.onload = function () {
     var tblHead = document.getElementById("tableHead");
     var tblBody = document.getElementById("tableBody");
     //load the grid
     var ctrl = new GridController(tblHead, tblBody);
-    //below is the default data that i found here
-    var el = document.getElementById('footerTime');
-    var greeter = new Greeter(el);
-    greeter.start();
 };

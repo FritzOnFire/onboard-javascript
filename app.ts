@@ -311,39 +311,10 @@ class GridController {
     }
 }
 
-class Greeter {
-    element: HTMLElement;
-    span: HTMLElement;
-    timerToken: number;
-
-    constructor(element: HTMLElement) {
-        this.element = element;
-        this.element.innerHTML += "The time is: ";
-        this.span = document.createElement('span');
-
-        this.element.appendChild(this.span);
-        this.span.innerText = new Date().toUTCString();
-    }
-
-    start() {
-        this.timerToken = setInterval(() => this.span.innerHTML = new Date().toUTCString(), 500);
-    }
-
-    stop() {
-        clearTimeout(this.timerToken);
-    }
-
-}
-
 window.onload = () => {
     var tblHead = document.getElementById("tableHead");
     var tblBody = document.getElementById("tableBody");
     //load the grid
     var ctrl = new GridController(tblHead, tblBody);
 
-
-    //below is the default data that i found here
-    var el = document.getElementById('footerTime');
-    var greeter = new Greeter(el);
-    greeter.start();
 };
