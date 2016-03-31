@@ -1,13 +1,152 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
-	<title>JS Onboard Project</title>
-	<script type="text/javascript" charset="utf-8" src="third_party/jquery-2.0.3.min.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TypeScript HTML App</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="app.js"></script>
+    <script src="scripts/jquery-1.12.2.min.js"></script>
+
+    <meta name="description" content="">
+    <meta name="author" content="'Abel Mapharisa' <abel.mapharisa@imqs.co.za>">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
 
 <body>
-	<p>Hello</p>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">TypeScript HTML App</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!--
+                <div class="col-sm-3 col-md-2 sidebar">
+                    <ul class="nav nav-sidebar">
+                        <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Analytics</a></li>
+                        <li><a href="#">Export</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Nav item</a></li>
+                        <li><a href="">Nav item again</a></li>
+                        <li><a href="">One more nav</a></li>
+                        <li><a href="">Another nav item</a></li>
+                        <li><a href="">More navigation</a></li>
+                    </ul>
+                    <ul class="nav nav-sidebar">
+                        <li><a href="">Nav item again</a></li>
+                        <li><a href="">One more nav</a></li>
+                        <li><a href="">Another nav item</a></li>
+                    </ul>
+                </div> 
+                -->
+            <!--<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">-->
+
+            <h2 class="sub-header">Grid Table </h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead id="tableHead">
+                        <tr>
+                            <th>#</th>
+                            <th>Header 01</th>
+                            <th>Header 02</th>
+                            <th>Header 03</th>
+                            <th>Header 04</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td>1,001</td>
+                            <td>Lorem</td>
+                            <td>ipsum</td>
+                            <td>dolor</td>
+                            <td>sit</td>
+                        </tr>
+                        <tr>
+                            <td>1,002</td>
+                            <td>amet</td>
+                            <td>consectetur</td>
+                            <td>adipiscing</td>
+                            <td>elit</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--</div>-->
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <div class="btn-group">
+                    <button id="btnFirst" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-fast-backward"></span> First
+                    </button>
+                    <button id="btnPrevious" type="button" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-arrow-left"></span> Previous
+                    </button>
+                    <button id="btnNavigationText" type="button" class="btn btn-inverse" disabled>
+                        90 to 115 of 120
+                    </button>
+                    <button id="btnNext" type="button" class="btn btn-primary">
+                        Next <span class="glyphicon glyphicon-arrow-right"></span>
+                    </button>
+                    <button id="btnLast" type="button" class="btn btn-primary">
+                        Last <span class="glyphicon glyphicon-fast-forward"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p id="footerTime" class="text-muted"></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+        ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
 </body>
 
 </html>
-
