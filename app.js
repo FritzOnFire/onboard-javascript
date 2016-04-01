@@ -48,8 +48,7 @@ var Grid = (function () {
         return this.startFrom;
     };
     Grid.prototype.getLastRecordIndex = function () {
-        var endValue = ((this.isFinished()) ? this.totalRecords - 1 : this.startFrom + this.totalToDisplay - 1);
-        return endValue;
+        return ((this.isFinished()) ? this.totalRecords - 1 : this.startFrom + this.totalToDisplay - 1);
     };
     Grid.prototype.getDisplayString = function () {
         return (this.startFrom + 1) + " to " + (this.getLastRecordIndex() + 1) + " of " + this.totalRecords;
@@ -93,34 +92,34 @@ var GridService = (function () {
      * retrieves an array of columns from the repo & assigns it to the grid object
      */
     GridService.prototype.fetchColumnNames = function () {
-        var self = this;
+        var _this = this;
         $.getJSON(this.baseURL + "columns", function (data) {
-            self.grid.setColumns(data);
-            self.ctrl.loadTableHeader();
+            _this.grid.setColumns(data);
+            _this.ctrl.loadTableHeader();
         });
     };
     /**
      * Retrieves the records from the repo and assigns them into the grid
      */
     GridService.prototype.fetchRecords = function (start, end) {
-        var self = this;
+        var _this = this;
         var totRecords = this.getGrid().getTotalRecords();
         if (end > (totRecords - 1)) {
             end = totRecords - 1;
         }
         console.log("\t- about to fetch: records?from=" + start + "&to=" + end);
         $.getJSON(this.baseURL + "records?from=" + start + "&to=" + end, function (data) {
-            self.grid.setResults(data);
-            self.ctrl.loadTableBody();
+            _this.grid.setResults(data);
+            _this.ctrl.loadTableBody();
         });
     };
     GridService.prototype.fetchRecordCount = function () {
-        var self = this;
+        var _this = this;
         $.getJSON(this.baseURL + "recordCount", function (count) {
             console.log("\t- total record count: " + count);
-            self.grid.setTotalRecords(count);
+            _this.grid.setTotalRecords(count);
             if (count > 0) {
-                self.loadGridData();
+                _this.loadGridData();
             }
         });
     };
@@ -146,28 +145,27 @@ var GridController = (function () {
         this.initButtonActions();
     }
     GridController.prototype.initButtonActions = function () {
-        var self = this;
+        var _this = this;
         //btn first
         document.getElementById("btnFirst").addEventListener('click', function () {
-            self.btnFirstAction();
+            _this.btnFirstAction();
         });
         //btn previous
         document.getElementById("btnPrevious").addEventListener('click', function () {
-            self.btnPreviousAction();
+            _this.btnPreviousAction();
         });
         //btn next
         document.getElementById("btnNext").addEventListener('click', function () {
-            self.btnNextAction();
+            _this.btnNextAction();
         });
         //btn next
         document.getElementById("btnLast").addEventListener('click', function () {
-            self.btnLastAction();
+            _this.btnLastAction();
         });
     };
     GridController.prototype.loadTableHeader = function () {
         var headerData = this.service.getGrid().getColumns();
         this.tableHeaderTxt = "";
-        // var row = row;
         var headerRow = document.createElement("tr");
         //loop through the header names and append them to the header row
         headerData.forEach(function (col) {

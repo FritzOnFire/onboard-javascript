@@ -69,8 +69,7 @@ class Grid {
     }
 
     getLastRecordIndex() {
-        var endValue = ((this.isFinished()) ? this.totalRecords - 1 : this.startFrom + this.totalToDisplay - 1);
-        return endValue;
+        return ((this.isFinished()) ? this.totalRecords - 1 : this.startFrom + this.totalToDisplay - 1);
     }
 
     getDisplayString(): string {
@@ -107,9 +106,9 @@ class GridService {
         //retrieve column names (doing this every time, just incase something changes)
         this.fetchColumnNames();
 
-        var firstIndex: number = this.grid.getStartFrom();
-        var lastIndex: number = this.grid.getLastRecordIndex();
-        var totRecords: number = this.grid.getTotalRecords();
+        let firstIndex: number = this.grid.getStartFrom();
+        let lastIndex: number = this.grid.getLastRecordIndex();
+        let totRecords: number = this.grid.getTotalRecords();
 
         if ((totRecords - 1) > firstIndex) {
             if (totRecords < lastIndex) {
@@ -126,11 +125,10 @@ class GridService {
      * retrieves an array of columns from the repo & assigns it to the grid object
      */
     private fetchColumnNames() {
-        var self = this;
         $.getJSON(this.baseURL + "columns",
-            function(data) {
-                self.grid.setColumns(data);
-                self.ctrl.loadTableHeader();
+            (data) => {
+                this.grid.setColumns(data);
+                this.ctrl.loadTableHeader();
             });
     }
 
@@ -138,29 +136,27 @@ class GridService {
      * Retrieves the records from the repo and assigns them into the grid
      */
     private fetchRecords(start: number, end: number) {
-        var self = this;
 
-        var totRecords = this.getGrid().getTotalRecords();
+        let totRecords = this.getGrid().getTotalRecords();
         if (end > (totRecords - 1)) {
             end = totRecords - 1;
         }
 
         console.log("\t- about to fetch: records?from=" + start + "&to=" + end);
         $.getJSON(this.baseURL + "records?from=" + start + "&to=" + end,
-            function(data) {
-                self.grid.setResults(data);
-                self.ctrl.loadTableBody();
+            (data) => {
+                this.grid.setResults(data);
+                this.ctrl.loadTableBody();
             });
     }
 
     private fetchRecordCount() {
-        var self = this;
         $.getJSON(this.baseURL + "recordCount",
-            function(count) {
+            (count)=> {
                 console.log("\t- total record count: " + count);
-                self.grid.setTotalRecords(count);
+                this.grid.setTotalRecords(count);
                 if (count > 0) {
-                    self.loadGridData();
+                    this.loadGridData();
                 }
             });
     }
@@ -190,47 +186,45 @@ class GridController {
     constructor(tblHeader: HTMLElement, tblBody: HTMLElement) {
         this.tblHeader = tblHeader;
         this.tblBody = tblBody;
-        var initialIndex = 0;
-        var totalToDisplay = 7;
+        let initialIndex = 0;
+        let totalToDisplay = 7;
         this.service = new GridService(initialIndex, totalToDisplay, this);
         this.service.initialize();
         this.initButtonActions();
     }
 
     private initButtonActions() {
-        var self = this;
 
         //btn first
-        document.getElementById("btnFirst").addEventListener('click', function() {
-            self.btnFirstAction();
+        document.getElementById("btnFirst").addEventListener('click',()=> {
+            this.btnFirstAction();
         });
 
         //btn previous
-        document.getElementById("btnPrevious").addEventListener('click', function() {
-            self.btnPreviousAction();
+        document.getElementById("btnPrevious").addEventListener('click', ()=> {
+            this.btnPreviousAction();
         });
 
         //btn next
-        document.getElementById("btnNext").addEventListener('click', function() {
-            self.btnNextAction();
+        document.getElementById("btnNext").addEventListener('click', ()=> {
+            this.btnNextAction();
         });
 
         //btn next
-        document.getElementById("btnLast").addEventListener('click', function() {
-            self.btnLastAction();
+        document.getElementById("btnLast").addEventListener('click', ()=> {
+            this.btnLastAction();
         });
 
     }
 
     loadTableHeader() {
-        var headerData = this.service.getGrid().getColumns();
+        let headerData = this.service.getGrid().getColumns();
         this.tableHeaderTxt = "";
-        // var row = row;
-        var headerRow = document.createElement("tr");
+        let headerRow = document.createElement("tr");
 
         //loop through the header names and append them to the header row
         headerData.forEach(col => {
-            var headerCol = document.createElement("th");
+            let headerCol = document.createElement("th");
             headerCol.innerText = col;
             headerRow.appendChild(headerCol);
         });
@@ -240,15 +234,15 @@ class GridController {
 
     loadTableBody() {
         console.log("updating tblGrid's body...");
-        var tblBodyData = this.service.getGrid().getResults();
+        let tblBodyData = this.service.getGrid().getResults();
         this.tableBodyTxt = "";
         this.tblBody.innerHTML = '';
 
         //udpate table body's contents
         tblBodyData.forEach(row => {
-            var tblRow = document.createElement("tr");
+            let tblRow = document.createElement("tr");
             row.forEach(col => {
-                var tblCol = document.createElement("td");
+                let tblCol = document.createElement("td");
                 tblCol.innerText = col;
                 tblRow.appendChild(tblCol);
             });
@@ -256,7 +250,7 @@ class GridController {
         });
 
         //update the navigation buttons
-        var btnNavigationText = document.getElementById("btnNavigationText");
+        let btnNavigationText = document.getElementById("btnNavigationText");
         btnNavigationText.innerText = "";
         btnNavigationText.innerText = this.service.getGrid().getDisplayString();
         console.log("DISPLAY STRING: " + this.service.getGrid().getDisplayString());
@@ -264,8 +258,8 @@ class GridController {
 
     btnFirstAction() {
         console.log("btnFirstAction() started...");
-        var totalToDisplay = this.service.getGrid().getTotalToDisplay();
-        var initialIndex = 0;
+        let totalToDisplay = this.service.getGrid().getTotalToDisplay();
+        let initialIndex = 0;
 
         this.service = new GridService(initialIndex, totalToDisplay, this);
         this.service.initialize();
@@ -273,8 +267,8 @@ class GridController {
 
     btnPreviousAction() {
         console.log("btnPreviousAction() started...");
-        var totalToDisplay = this.service.getGrid().getTotalToDisplay();
-        var initialIndex = this.service.getGrid().getStartFrom() - totalToDisplay;
+        let totalToDisplay = this.service.getGrid().getTotalToDisplay();
+        let initialIndex = this.service.getGrid().getStartFrom() - totalToDisplay;
 
         this.service = new GridService(initialIndex, totalToDisplay, this);
         this.service.initialize();
@@ -282,8 +276,8 @@ class GridController {
 
     btnNextAction() {
         console.log("btnNextAction() started...");
-        var totalToDisplay = this.service.getGrid().getTotalToDisplay();
-        var initialIndex = totalToDisplay + this.service.getGrid().getStartFrom();
+        let totalToDisplay = this.service.getGrid().getTotalToDisplay();
+        let initialIndex = totalToDisplay + this.service.getGrid().getStartFrom();
 
         this.service = new GridService(initialIndex, totalToDisplay, this);
         this.service.initialize();
@@ -292,11 +286,11 @@ class GridController {
     btnLastAction() {
         try {
             console.log("btnLastAction() started...");
-            var totalRecords = this.service.getGrid().getTotalRecords();
-            var totalToDisplay = this.service.getGrid().getTotalToDisplay();
-            var initialIndex = 0;
+            let totalRecords = this.service.getGrid().getTotalRecords();
+            let totalToDisplay = this.service.getGrid().getTotalToDisplay();
+            let initialIndex = 0;
 
-            var remainder = totalRecords % totalToDisplay;
+            let remainder = totalRecords % totalToDisplay;
             if (remainder > 0) {
                 initialIndex = totalRecords - remainder - 1;
             } else {
@@ -312,9 +306,9 @@ class GridController {
 }
 
 window.onload = () => {
-    var tblHead = document.getElementById("tableHead");
-    var tblBody = document.getElementById("tableBody");
+    let tblHead = document.getElementById("tableHead");
+    let tblBody = document.getElementById("tableBody");
+    
     //load the grid
-    var ctrl = new GridController(tblHead, tblBody);
-
+    let ctrl = new GridController(tblHead, tblBody);
 };
